@@ -199,7 +199,11 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
       }
       switch (childIn.tagName.toUpperCase()) {
         case 'CATEGORY':
-          var childOut = rootOut.createNode(childIn.getAttribute('name'));
+          var labelClass = childIn.getAttribute('class') || "";
+          var childLabel = goog.html.SafeHtml.create('span', {
+              'class': labelClass
+          }, childIn.getAttribute('name'));
+          var childOut = rootOut.createNode(childLabel);
           childOut.blocks = [];
           treeOut.add(childOut);
           var custom = childIn.getAttribute('custom');
@@ -380,7 +384,7 @@ Blockly.Toolbox.TreeControl.prototype.handleTouchEvent_ = function(e) {
  */
 Blockly.Toolbox.TreeControl.prototype.createNode = function(opt_html) {
   return new Blockly.Toolbox.TreeNode(this.toolbox_, opt_html ?
-      goog.html.SafeHtml.htmlEscape(opt_html) : goog.html.SafeHtml.EMPTY,
+      opt_html : goog.html.SafeHtml.EMPTY,
       this.getConfig(), this.getDomHelper());
 };
 
