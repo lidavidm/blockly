@@ -199,7 +199,9 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
       }
       switch (childIn.tagName.toUpperCase()) {
         case 'CATEGORY':
-          var childOut = rootOut.createNode(childIn.getAttribute('name'));
+          var labelClass = childIn.getAttribute('class') || "";
+          var childOut = rootOut.createNode(childIn.getAttribute('name'),
+                                            labelClass);
           childOut.blocks = [];
           treeOut.add(childOut);
           var custom = childIn.getAttribute('custom');
@@ -378,10 +380,10 @@ Blockly.Toolbox.TreeControl.prototype.handleTouchEvent_ = function(e) {
  * @return {!goog.ui.tree.TreeNode} The new item.
  * @override
  */
-Blockly.Toolbox.TreeControl.prototype.createNode = function(opt_html) {
+Blockly.Toolbox.TreeControl.prototype.createNode = function(opt_html, opt_class) {
   return new Blockly.Toolbox.TreeNode(this.toolbox_, opt_html ?
       goog.html.SafeHtml.htmlEscape(opt_html) : goog.html.SafeHtml.EMPTY,
-      this.getConfig(), this.getDomHelper());
+      this.getConfig(), this.getDomHelper(), opt_class);
 };
 
 /**
@@ -432,8 +434,9 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
  * @constructor
  * @extends {goog.ui.tree.TreeNode}
  */
-Blockly.Toolbox.TreeNode = function(toolbox, html, opt_config, opt_domHelper) {
+Blockly.Toolbox.TreeNode = function(toolbox, html, opt_config, opt_domHelper, opt_class) {
   goog.ui.tree.TreeNode.call(this, html, opt_config, opt_domHelper);
+  this.opt_class = opt_class;
   if (toolbox) {
     var resize = function() {
       Blockly.fireUiEvent(window, 'resize');
@@ -455,6 +458,17 @@ goog.inherits(Blockly.Toolbox.TreeNode, goog.ui.tree.TreeNode);
 Blockly.Toolbox.TreeNode.prototype.getExpandIconSafeHtml = function() {
   return goog.html.SafeHtml.create('span');
 };
+
+Blockly.Toolbox.TreeNode.prototype.getRowClassName = function() {
+  var selectedClass;
+  if (this.isSelected()) {
+    selectedClass = ' ' + this.config_.cssSelectedRow;
+  } else {
+    selectedClass = '';
+  }
+  return this.config_.cssTreeRow + selectedClass + " " + this.opt_class;
+};
+
 
 /**
  * Expand or collapse the node on mouse click.
