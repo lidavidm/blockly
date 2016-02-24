@@ -134,7 +134,7 @@ Blockly.Flyout.prototype.createDom = function() {
   this.svgGroup_ = Blockly.createSvgElement('g',
       {'class': 'blocklyFlyout'}, null);
   this.svgBackground_ = Blockly.createSvgElement('path',
-      {'class': 'blocklyFlyoutBackground'}, this.svgGroup_);
+      {'fill': 'url(#blueprintGrid)'}, this.svgGroup_);
   this.svgGroup_.appendChild(this.workspace_.createDom());
   return this.svgGroup_;
 };

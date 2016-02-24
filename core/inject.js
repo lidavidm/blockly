@@ -245,6 +245,7 @@ Blockly.createDom_ = function(container, options) {
     'version': '1.1',
     'class': 'blocklySvg'
   }, container);
+
   /*
   <defs>
     ... filters go here ...
@@ -320,6 +321,21 @@ Blockly.createDom_ = function(container, options) {
     // x1, y1, x1, x2 properties will be set later in updateGridPattern_.
   }
   options.gridPattern = gridPattern;
+
+  var gridSize = 10;
+  var blueprint = Blockly.createSvgElement('pattern', {
+    'id': 'blueprintGrid',
+    'width': gridSize,
+    'height': gridSize,
+    'patternUnits': 'userSpaceOnUse',
+  }, defs);
+  Blockly.createSvgElement('path', {
+    'd': 'M ' + gridSize + ' 0 L 0 0 0 ' + gridSize + ' ' + gridSize + ' ' + gridSize,
+    'fill': '#007',
+    'stroke': '#FFF',
+    'stroke-width': 1,
+  }, blueprint);
+
   return svg;
 };
 
