@@ -408,6 +408,14 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
     toolbox.addColour_(node);
   }
   goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, node);
+  // If a class is defined, use the blueprint styling
+  // TODO: if necessary, make this more general
+  if (node && node.opt_class) {
+    toolbox.flyout_.styleBlueprint();
+  }
+  else {
+    toolbox.flyout_.styleNormal();
+  }
   if (node && node.blocks && node.blocks.length) {
     toolbox.flyout_.show(node.blocks);
     // Scroll the flyout to the top if the category has changed.

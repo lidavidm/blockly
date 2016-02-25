@@ -134,7 +134,7 @@ Blockly.Flyout.prototype.createDom = function() {
   this.svgGroup_ = Blockly.createSvgElement('g',
       {'class': 'blocklyFlyout'}, null);
   this.svgBackground_ = Blockly.createSvgElement('path',
-      {'fill': 'url(#blueprintGrid)'}, this.svgGroup_);
+      {'class': 'blocklyFlyoutBackground'}, this.svgGroup_);
   this.svgGroup_.appendChild(this.workspace_.createDom());
   return this.svgGroup_;
 };
@@ -353,6 +353,18 @@ Blockly.Flyout.prototype.hide = function() {
   }
   // Do NOT delete the blocks here.  Wait until Flyout.show.
   // https://neil.fraser.name/news/2014/08/09/
+};
+
+Blockly.Flyout.prototype.styleBlueprint = function() {
+  console.log("Blueprint");
+  this.svgBackground_.setAttribute('class', '');
+  this.svgBackground_.setAttribute('fill', 'url(#blueprintGrid)');
+};
+
+Blockly.Flyout.prototype.styleNormal = function() {
+  console.log("Normal");
+  this.svgBackground_.setAttribute('class', 'blocklyFlyoutBackground');
+  this.svgBackground_.setAttribute('fill', '');
 };
 
 /**
