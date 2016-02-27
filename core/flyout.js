@@ -356,13 +356,11 @@ Blockly.Flyout.prototype.hide = function() {
 };
 
 Blockly.Flyout.prototype.styleBlueprint = function() {
-  console.log("Blueprint");
   this.svgBackground_.setAttribute('class', '');
   this.svgBackground_.setAttribute('fill', 'url(#blueprintGrid)');
 };
 
 Blockly.Flyout.prototype.styleNormal = function() {
-  console.log("Normal");
   this.svgBackground_.setAttribute('class', 'blocklyFlyoutBackground');
   this.svgBackground_.setAttribute('fill', '');
 };
