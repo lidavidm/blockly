@@ -34,6 +34,25 @@ goog.require('Blockly.Blocks');
  */
 Blockly.Blocks.variables.HUE = 330;
 
+/**
+ * Generate the list of possible classes that a variable can take on.
+ */
+Blockly.Blocks.variables.CLASSES = function() {
+  return [
+    ["the Robot", "Robot"],
+    ["the number", "int"],
+    ["the object", "object"],
+  ];
+};
+
+/**
+ * The image for the class.
+ */
+Blockly.Blocks.variables.CLASS_IMAGE = function(class_name) {
+  return "https://www.gstatic.com/codesite/ph/images/star_on.gif";
+};
+
+
 Blockly.Blocks['variables_get'] = {
   /**
    * Block for variable getter.
@@ -43,15 +62,12 @@ Blockly.Blocks['variables_get'] = {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
     this.setColour(Blockly.Blocks.variables.HUE);
     this.setInputsInline(true);
-    // Data represents the class object
-    this.data = 'object';
-
-    var dropdown = new Blockly.FieldDropdown(function() {
-      return [["the Robot", "Robot"], ["the object", "object"]];
-    });
+    var dropdown = new Blockly.FieldDropdown(Blockly.Blocks.variables.CLASSES);
     this.appendDummyInput()
         .appendField(dropdown, "CLASS")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField(
+            new Blockly.FieldImage(
+                Blockly.Blocks.variables.CLASS_IMAGE("object"), 15, 15, "*"))
         .appendField("called");
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable(
