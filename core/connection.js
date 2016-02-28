@@ -602,6 +602,15 @@ Blockly.Connection.prototype.checkType_ = function(otherConnection) {
       !otherConnection.sourceBlock_.isMovable()) {
     return false;
   }
+
+  var weAreMethod = (this.check_ && this.check_.length > 0 &&
+                     this.check_[0] === "method");
+  var theyAreMethod = (otherConnection.check_ &&
+                       otherConnection.check_.length > 0 &&
+                       otherConnection.check_[0] === "method");
+  // If they require a method, we --must-- be a method, and vice versa
+  if (weAreMethod) return theyAreMethod;
+  if (theyAreMethod) return weAreMethod;
   if (!this.check_ || !otherConnection.check_) {
     // One or both sides are promiscuous enough that anything will fit.
     return true;
