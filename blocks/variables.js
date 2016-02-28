@@ -42,6 +42,17 @@ Blockly.Blocks['variables_get'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
     this.setColour(Blockly.Blocks.variables.HUE);
+    this.setInputsInline(true);
+    // Data represents the class object
+    this.data = 'object';
+
+    var dropdown = new Blockly.FieldDropdown(function() {
+      return [["the Robot", "Robot"], ["the object", "object"]];
+    });
+    this.appendDummyInput()
+        .appendField(dropdown, "CLASS")
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("called");
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable(
         Blockly.Msg.VARIABLES_DEFAULT_NAME), 'VAR');
