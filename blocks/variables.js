@@ -40,7 +40,7 @@ Blockly.Blocks.variables.HUE = 330;
 Blockly.Blocks.variables.CLASSES = function() {
   return [
     ["the Robot", "Robot"],
-    ["the number", "int"],
+    ["the number", "number"],
     ["the object", "object"],
   ];
 };
