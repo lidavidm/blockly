@@ -49,7 +49,14 @@ Blockly.Blocks.variables.CLASSES = function() {
  * The image for the class.
  */
 Blockly.Blocks.variables.CLASS_IMAGE = function(class_name) {
-  return "https://www.gstatic.com/codesite/ph/images/star_on.gif";
+  switch (class_name) {
+  case "Robot":
+    return "assets/sprites/robot_3Dblue.png";
+  case "number":
+    return "assets/sprites/number.png";
+  default:
+    return "https://www.gstatic.com/codesite/ph/images/star_on.gif";
+  }
 };
 
 
@@ -67,7 +74,8 @@ Blockly.Blocks['variables_get'] = {
         .appendField(dropdown, "CLASS")
         .appendField(
             new Blockly.FieldImage(
-                Blockly.Blocks.variables.CLASS_IMAGE("object"), 15, 15, "*"))
+              Blockly.Blocks.variables.CLASS_IMAGE("Robot"), 15, 15, "*"),
+          "CLASS_IMAGE")
         .appendField("called");
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable(
@@ -75,6 +83,16 @@ Blockly.Blocks['variables_get'] = {
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+  },
+  /**
+   * Update the class image of this block.
+   * @this Blockly.Block
+   */
+  validate: function() {
+    var block_class = this.getField("CLASS").getValue();
+    var image = this.getField("CLASS_IMAGE");
+    var image_src = Blockly.Blocks.variables.CLASS_IMAGE(block_class);
+    image.setValue(image_src);
   },
   /**
    * Return all variables referenced by this block.
