@@ -35,28 +35,42 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks.variables.HUE = 330;
 
 /**
- * Generate the list of possible classes that a variable can take on.
+ * The list of possible classes that a variable can take on.
+ */
+Blockly.Blocks.variables.CLASS_LIST = {
+  "object": {
+    name: "object",
+    image: "https://www.gstatic.com/codesite/ph/images/star_on.gif",
+  }
+};
+
+Blockly.Blocks.variables.addClass = function(className, image) {
+  Blockly.Blocks.variables.CLASS_LIST[className] = {
+    name: className,
+    image: image,
+  };
+};
+
+/**
+ * Generate the list of possible classes that a variable can take on,
+ * for the dropdown of a variables_get block.
  */
 Blockly.Blocks.variables.CLASSES = function() {
-  return [
-    ["the Robot", "Robot"],
-    ["the number", "number"],
-    ["the object", "object"],
-  ];
+  return Object.keys(Blockly.Blocks.variables.CLASS_LIST).sort().map(function(key) {
+    return [Blockly.Blocks.variables.CLASS_LIST[key].name, key];
+  });
 };
 
 /**
  * The image for the class.
  */
-Blockly.Blocks.variables.CLASS_IMAGE = function(class_name) {
-  switch (class_name) {
-  case "Robot":
-    return "assets/sprites/robot_3Dblue.png";
-  case "number":
-    return "assets/sprites/number.png";
-  default:
-    return "https://www.gstatic.com/codesite/ph/images/star_on.gif";
+Blockly.Blocks.variables.CLASS_IMAGE = function(className) {
+  var classRecord = Blockly.Blocks.variables.CLASS_LIST[className];
+  if (classRecord && classRecord.image) {
+    return classRecord.image;
   }
+
+  return "https://www.gstatic.com/codesite/ph/images/star_on.gif";
 };
 
 
@@ -71,6 +85,7 @@ Blockly.Blocks['variables_get'] = {
     this.setInputsInline(true);
     var dropdown = new Blockly.FieldDropdown(Blockly.Blocks.variables.CLASSES);
     this.appendDummyInput()
+        .appendField("the")
         .appendField(dropdown, "CLASS")
         .appendField(
             new Blockly.FieldImage(
