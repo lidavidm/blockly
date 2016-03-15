@@ -177,11 +177,12 @@ Blockly.Generator.prototype.blockToCode = function(block) {
       code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + block.id + '\'') +
           code;
     }
-    var result = this.scrub_(block, code);
     if (this.STATEMENT_POSTFIX) {
       code = code + this.STATEMENT_POSTFIX.replace(/%1/g, '\'' + block.id + '\'');
     }
-    return code;
+
+    var result = this.scrub_(block, code);
+    return result;
   } else if (code === null) {
     // Block has handled code generation itself.
     return '';
