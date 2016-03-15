@@ -64,6 +64,14 @@ Blockly.Generator.prototype.INFINITE_LOOP_TRAP = null;
 Blockly.Generator.prototype.STATEMENT_PREFIX = null;
 
 /**
+ * Arbitrary code to inject after every statement.
+ * Any instances of '%1' will be replaced by the block ID of the statement.
+ * E.g. 'highlight(%1);\n'
+ * @type {?string}
+ */
+Blockly.Generator.prototype.STATEMENT_POSTFIX = null;
+
+/**
  * Generate code for all blocks in the workspace to the specified language.
  * @param {Blockly.Workspace} workspace Workspace to generate code from.
  * @return {string} Generated code.
@@ -169,7 +177,11 @@ Blockly.Generator.prototype.blockToCode = function(block) {
       code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + block.id + '\'') +
           code;
     }
-    return this.scrub_(block, code);
+    var result = this.scrub_(block, code);
+    if (this.STATEMENT_POSTFIX) {
+      code = code + this.STATEMENT_POSTFIX.replace(/%1/g, '\'' + block.id + '\'');
+    }
+    return code;
   } else if (code === null) {
     // Block has handled code generation itself.
     return '';
@@ -262,6 +274,7 @@ Blockly.Generator.prototype.addLoopTrap = function(branch, id) {
     branch += this.prefixLines(this.STATEMENT_PREFIX.replace(/%1/g,
         '\'' + id + '\''), this.INDENT);
   }
+  // TODO: postfix?
   return branch;
 };
 
