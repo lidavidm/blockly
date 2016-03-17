@@ -54,6 +54,14 @@ Blockly.FieldDropdown = function(menuGenerator, opt_validator) {
   this.trimOptions_();
   var firstTuple = this.getOptions_()[0];
 
+  if (!firstTuple) {
+    // Workaround for empty lists: use a blank string instead. Needed
+    // to remove rename/new variable options - in the toolbox, before
+    // the block is really initialized, it won't have any options in
+    // the dropdown.
+    firstTuple = ["", ""];
+  }
+
   // Call parent's constructor.
   Blockly.FieldDropdown.superClass_.constructor.call(this, firstTuple[1],
       opt_validator);
