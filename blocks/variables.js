@@ -83,15 +83,12 @@ Blockly.Blocks['variables_get'] = {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
     this.setColour(Blockly.Blocks.variables.HUE);
     this.setInputsInline(true);
-    var dropdown = new Blockly.FieldDropdown(Blockly.Blocks.variables.CLASSES);
+    this.data = "object";
     this.appendDummyInput()
-        .appendField("the")
-        .appendField(dropdown, "CLASS")
         .appendField(
             new Blockly.FieldImage(
-              Blockly.Blocks.variables.CLASS_IMAGE("Robot"), 15, 15, "*"),
+              Blockly.Blocks.variables.CLASS_IMAGE(this.data), 15, 15, "*"),
           "CLASS_IMAGE")
-        .appendField("called");
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable(
         Blockly.Msg.VARIABLES_DEFAULT_NAME), 'VAR');
@@ -104,7 +101,7 @@ Blockly.Blocks['variables_get'] = {
    * @this Blockly.Block
    */
   validate: function() {
-    var block_class = this.getField("CLASS").getValue();
+    var block_class = this.data;
     var image = this.getField("CLASS_IMAGE");
     var image_src = Blockly.Blocks.variables.CLASS_IMAGE(block_class);
     image.setValue(image_src);
