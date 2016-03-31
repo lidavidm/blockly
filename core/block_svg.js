@@ -134,9 +134,9 @@ Blockly.BlockSvg.prototype.select = function() {
     Blockly.selected.unselect();
     Blockly.Events.enable();
   }
-  var event = new Blockly.Events.Ui(null, 'selected', oldId, this.id);
-  event.workspaceId = this.workspace.id;
-  Blockly.Events.fire(event);
+  // var event = new Blockly.Events.Ui(null, 'selected', oldId, this.id);
+  // event.workspaceId = this.workspace.id;
+  // Blockly.Events.fire(event);
   Blockly.selected = this;
   this.addSelect();
   Blockly.fireUiEvent(this.workspace.getCanvas(), 'blocklySelectChange');
@@ -149,9 +149,9 @@ Blockly.BlockSvg.prototype.unselect = function() {
   if (Blockly.selected != this) {
     return;
   }
-  var event = new Blockly.Events.Ui(null, 'selected', this.id, null);
-  event.workspaceId = this.workspace.id;
-  Blockly.Events.fire(event);
+  // var event = new Blockly.Events.Ui(null, 'selected', this.id, null);
+  // event.workspaceId = this.workspace.id;
+  // Blockly.Events.fire(event);
   Blockly.selected = null;
   this.removeSelect();
   Blockly.fireUiEvent(this.workspace.getCanvas(), 'blocklySelectChange');
@@ -560,8 +560,8 @@ Blockly.BlockSvg.prototype.onMouseDown_ = function(e) {
  */
 Blockly.BlockSvg.prototype.onMouseUp_ = function(e) {
   if (Blockly.dragMode_ != Blockly.DRAG_FREE) {
-    Blockly.Events.fire(
-        new Blockly.Events.Ui(this, 'click', undefined, undefined));
+    // Blockly.Events.fire(
+    //     new Blockly.Events.Ui(this, 'click', undefined, undefined));
   }
   Blockly.setPageSelectable(true);
   Blockly.terminateDrag_();
