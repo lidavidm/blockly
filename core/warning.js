@@ -57,19 +57,19 @@ Blockly.Warning.prototype.collapseHidden = false;
 Blockly.Warning.prototype.drawIcon_ = function(group) {
   // Triangle with rounded corners.
   Blockly.createSvgElement('path',
-      {'class': 'blocklyIconShape',
+      {'class': 'blocklyIconShape blocklyWarningIconShape',
        'd': 'M2,15Q-1,15 0.5,12L6.5,1.7Q8,-1 9.5,1.7L15.5,12Q17,15 14,15z'},
        group);
   // Can't use a real '!' text character since different browsers and operating
   // systems render it differently.
   // Body of exclamation point.
   Blockly.createSvgElement('path',
-      {'class': 'blocklyIconSymbol',
+      {'class': 'blocklyIconSymbol blocklyWarningIconSymbol',
        'd': 'm7,4.8v3.16l0.27,2.27h1.46l0.27,-2.27v-3.16z'},
        group);
   // Dot of exclamation point.
   Blockly.createSvgElement('rect',
-      {'class': 'blocklyIconSymbol',
+      {'class': 'blocklyIconSymbol blocklyWarningIconSymbol',
        'x': '7', 'y': '11', 'height': '2', 'width': '2'},
        group);
 };

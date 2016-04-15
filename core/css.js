@@ -289,6 +289,16 @@ Blockly.Css.CONTENT = [
     'fill: #fff;',
   '}',
 
+  '.blocklyWarningIconShape {',
+    'fill: #f00;',
+    'stroke: #000;',
+    'stroke-width: 1px;',
+  '}',
+
+  '.blocklyWarningIconSymbol {',
+    'fill: #000;',
+  '}',
+
   '.blocklyMinimalBody {',
     'margin: 0;',
     'padding: 0;',
